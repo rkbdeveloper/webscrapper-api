@@ -27,7 +27,17 @@ function screenShot(url){
     (async () => {
 
     
-      const browser = await puppeteer.launch(getChromeOptions);
+      const browser = await puppeteer.launch( {
+        headless: true,
+        defaultViewport: null,
+        args: [
+            '--incognito',
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--single-process',
+            '--disable-dev-shm-usage',
+        ],
+      });
 
       const page = await browser.newPage()
 
