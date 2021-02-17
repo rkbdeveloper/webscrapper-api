@@ -9,7 +9,6 @@ function getChromeOptions(){
     const chromeOptions = {
       headless: true,
       args: [
-          "--incognito",
           "--no-sandbox",
           '--disable-setuid-sandbox',
       ],
