@@ -12,6 +12,7 @@ function getChromeOptions(){
       args: [
           "--incognito",
           "--no-sandbox",
+          '--disable-setuid-sandbox',
           "--single-process",
           "--no-zygote"
       ],
