@@ -18,7 +18,7 @@ app.get('/screenshot', (req, res) => {
 app.post('/facebook', (req, res) => {
   const url = req.query.url
   (async () => {
-    const buffer = await GetFacebookImages(url)
+    const buffer = await GetFacebookData(url)
     res.setHeader('Content-Type', 'application/json')
     res.send(buffer)
   })()
