@@ -12,5 +12,8 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "puppeteer": "^7.1.0"
+  },
+  "engines": {
+    "node": "14.15.5"
   }
 }
