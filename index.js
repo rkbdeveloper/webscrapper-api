@@ -6,7 +6,7 @@ const {GetScreenShot, GetFacebookData} = require('./links')
 app.get('/', (req, res) => res.status(200).json({ status: 'ok' }))
 
 app.get('/screenshot', (req, res) => {
-  const url = req.query.url
+  const url = req.query.url;
   (async () => {
     const buffer = await GetScreenShot(url)
     res.setHeader('Content-Disposition', 'attachment; filename="screenshot.png"')
@@ -16,7 +16,7 @@ app.get('/screenshot', (req, res) => {
 })
 
 app.post('/facebook', (req, res) => {
-  const url = req.query.url
+  const url = req.query.url;
   (async () => {
     const buffer = await GetFacebookData(url)
     res.setHeader('Content-Type', 'application/json')
