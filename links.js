@@ -7,13 +7,7 @@ module.exports = {
 
 function getChromeOptions(){
     const chromeOptions = {
-      headless: true,
-      args: [
-          "--no-sandbox",
-          '--disable-setuid-sandbox',
-          '--disable-dev-shm-usage',
-          '--single-process'
-      ],
+      args: ['--no-sandbox'] 
     };
 
     return chromeOptions;
