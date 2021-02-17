@@ -7,7 +7,15 @@ module.exports = {
 
 function getChromeOptions(){
     const chromeOptions = {
-      args: ['--no-sandbox'] 
+      headless: true,
+      defaultViewport: null,
+      args: [
+          '--incognito',
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+          '--single-process',
+          '--disable-dev-shm-usage',
+      ],
     };
 
     return chromeOptions;
@@ -18,6 +26,7 @@ function screenShot(url){
   return new Promise((resolve, reject) => {
     (async () => {
 
+    
       const browser = await puppeteer.launch(getChromeOptions);
 
       const page = await browser.newPage()
