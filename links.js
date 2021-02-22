@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer')
 const CHROME_LOCATION = '/usr/bin/chromium-browser';
+
 module.exports = {
   GetScreenShot : screenShot,
   GetFacebookData : getFacebookData,
@@ -27,7 +28,7 @@ function screenShot(url){
   return new Promise((resolve, reject) => {
     (async () => {
 
-      console.log(`chrome options ${getChromeOptions()}!`)
+      console.log(`chrome options ${JSON.stringify(getChromeOptions())}!`)
       const browser = await puppeteer.launch(getChromeOptions());
 
       const page = await browser.newPage()
