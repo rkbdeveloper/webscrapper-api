@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer')
-
+const CHROME_LOCATION = '/usr/bin/chromium-browser';
 module.exports = {
   GetScreenShot : screenShot,
   GetFacebookData : getFacebookData,
@@ -9,6 +9,7 @@ function getChromeOptions(){
     const chromeOptions = {
       headless: true,
       defaultViewport: null,
+      excutablePath: CHROME_LOCATION,
       args: [
           '--incognito',
           '--no-sandbox',
