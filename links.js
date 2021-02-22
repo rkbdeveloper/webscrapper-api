@@ -10,7 +10,7 @@ function getChromeOptions(){
     const chromeOptions = {
       headless: true,
       defaultViewport: null,
-      excutablePath: CHROME_LOCATION,
+      executablePath: CHROME_LOCATION,
       args: [
           '--incognito',
           '--no-sandbox',
