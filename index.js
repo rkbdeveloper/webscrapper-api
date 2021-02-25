@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3131
-const {GetScreenShot, GetFacebookData} = require('./links')
+const {GetScreenShot, GetFacebookData} = require('./function')
 
 app.get('/', (req, res) => res.status(200).json({ status: 'ok' }))
 
