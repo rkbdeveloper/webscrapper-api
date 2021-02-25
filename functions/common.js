@@ -17,8 +17,6 @@ function getChromeOptions(){
           '--incognito',
           '--no-sandbox',
           '--disable-setuid-sandbox',
-          '--single-process',
-          '--disable-dev-shm-usage',
       ],
     };
 
@@ -28,43 +26,47 @@ function getChromeOptions(){
 function GetImageLinks(url, regex){
     return new Promise((resolve, reject) => {
         (async () => {
+          const browser = await puppeteer.launch(getChromeOptions());
+          const page = await browser.newPage()
     
-            const browser = await puppeteer.launch({headless: false, defaultViewport:null, args:['--incognito'] });
-            const page = await browser.newPage()
+          await page.goto(url, {
+            waitUntil: ['load', 'networkidle0', 'domcontentloaded']
+          })
     
-            await page.goto(url, {
-            waitUntil: ['load', 'networkidle0', 'domcontentloaded'],
-            timeout: 2147483647,
-            })
-    
-            await page.waitForTimeout(1000)
-    
-            const links = await page.evaluate(() => Array.from(document.querySelectorAll('.video-feed-item-wrapper'),( async (element) => {
-                const subPage = await browser.newPage()
-    
-                await subPage.goto(element.href, {
-                waitUntil: ['load', 'networkidle0', 'domcontentloaded'],
-                timeout: 2147483647,
-                })
-    
-                const videoURL = await subPage.evaluate(() => Array.from(document.querySelectorAll('.video-player'), subElement => subElement.src))
-                
-                return videoURL;
-            })));
-    
-            console.log(links);
-            const buffer = await page.screenshot({
-            fullPage: true,
-            type: 'png'
-            })
-    
-            await browser.close()
-    
-            resolve(buffer)
+          await autoScroll(page);
+          await page.waitForTimeout(3000)
+      
+          const links = await page.evaluate((regex) => {return Array.from(document.querySelectorAll(regex), element => element.src)}, regex);
+
+          await browser.close()
+
+          resolve(links)
         })()
-    });
+      })
 }
 
 function GetVideoLinks(url, regex){
     
 }
+
+
+async function autoScroll(page){
+    await page.evaluate(async () => {
+        await new Promise((resolve, reject) => {
+            var totalHeight = 0;
+            var distance = 100;
+            var timer = setInterval(() => {
+                console.log('Scrolling');
+                var scrollHeight = document.body.scrollHeight;
+                window.scrollBy(0, distance);
+                totalHeight += distance;
+  
+                if(totalHeight >= scrollHeight){
+                  console.log('Scrolling DONE');
+                    clearInterval(timer);
+                    resolve();
+                }
+            }, 400);
+        });
+    });
+  }
