@@ -56,13 +56,14 @@ async function autoScroll(page){
         await new Promise((resolve, reject) => {
             var totalHeight = 0;
             var distance = 100;
+            var start = new Date()
             var timer = setInterval(() => {
                 console.log('Scrolling');
                 var scrollHeight = document.body.scrollHeight;
                 window.scrollBy(0, distance);
                 totalHeight += distance;
-  
-                if(totalHeight >= scrollHeight){
+                var end = new Date() - start
+                if(totalHeight >= scrollHeight || end > 50000){
                   console.log('Scrolling DONE');
                     clearInterval(timer);
                     resolve();
