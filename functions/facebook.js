@@ -1,0 +1,2 @@
+const commonFunction = require('./common');
+
